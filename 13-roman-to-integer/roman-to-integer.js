@@ -1,9 +1,5 @@
-/**
- * @param {string} s
- * @return {number}
- */
 var romanToInt = function(s) {
-    const symbols = {
+      const sym = {
         'I': 1,
         'V': 5,
         'X': 10,
@@ -13,28 +9,19 @@ var romanToInt = function(s) {
         'M': 1000
     }
 
-    let result = 0
+    let result = 0;
 
-    /* 
-        1000
-        900
-        90
-        4
-     */
+    for (let i = 0; i < s.length; i++) {
+        const cur = sym[s[i]];
+        const next = sym[s[i + 1]];
 
-    for(let i=0; i<s.length; i++) {
-        let value = symbols[s[i]]
-        
-        // edge case where if current value is less than next value
-        if(i+1 < s.length) {
-            const value2 = symbols[s[i+1]]
-            if(value2 > value) {
-                value = value2 - value
-                i++
-            }
-        } 
-        result += value
+        if (cur < next) {
+            result += next - cur;
+            i++;
+        } else {
+            result += cur;
+        }
     }
 
-    return result
+    return result;
 };
